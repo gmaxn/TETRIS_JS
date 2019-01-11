@@ -133,7 +133,6 @@ function draw()
 
 	drawMatrix(arena, {x: 0, y: 0});
 	drawMatrix(player.matrix, player.pos);
-
 }
 
 function merge(arena, player)
@@ -153,7 +152,6 @@ function merge(arena, player)
 function playerDrop()
 {
 	player.pos.y++;
-
 
 	if(collide(arena, player))
 	{
@@ -189,6 +187,7 @@ function playerReset()
         updateScore();
     }
 }
+
 function playerRotate(dir)
 {
 	const pos = player.pos.x;
@@ -223,6 +222,7 @@ function rotate(matrix, dir)
 		matrix.reverse();
 }
 
+let score = 0;
 let dropCounter = 0;
 let dropInterval = 1000;
 let lastTime = 0;
@@ -246,7 +246,15 @@ function update(time = 0)
 
 function updateScore()
 {
+
 	document.getElementById('score').innerText = player.score;
+	if(player.score - score < 10)
+	{
+		score = player.score;
+		dropInterval -= 50;
+	}
+	document.getElementById('dropInterval').innerText = dropInterval;
+	document.getElementById('last').innerText = score;
 }
 const colors = [
 	null,
