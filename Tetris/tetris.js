@@ -18,7 +18,8 @@ function arenaSweep()
         arena.unshift(row);
         ++y;
         player.score += rowCount * 10;
-        rowCount *= 2;
+		rowCount *= 2;
+		dropInterval -= 50;
     }
 }
 
@@ -183,7 +184,8 @@ function playerReset()
     if (collide(arena, player)) 
     {
         arena.forEach(row => row.fill(0));
-        player.score = 0;
+		player.score = 0;
+		dropInterval = 1000;
         updateScore();
     }
 }
@@ -251,10 +253,7 @@ function updateScore()
 	if(player.score - score < 10)
 	{
 		score = player.score;
-		dropInterval -= 50;
 	}
-	document.getElementById('dropInterval').innerText = dropInterval;
-	document.getElementById('last').innerText = score;
 }
 const colors = [
 	null,
