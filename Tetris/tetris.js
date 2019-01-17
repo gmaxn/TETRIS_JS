@@ -156,13 +156,29 @@ function playerDrop()
 
 	if(collide(arena, player))
 	{
+		if(aux !== 0)
+		{
+			dropInterval = aux;
+			aux = 0;
+		}
 		player.pos.y--;
 		merge(arena, player);
 		playerReset();
 		arenaSweep();
 		updateScore();
+	
+
 	}
 	dropCounter = 0;
+}
+
+function playerFastDrop()
+{
+	if(aux === 0)
+	{
+		aux = dropInterval;
+		dropInterval = -1000;
+	}
 }
 
 function playerMove(dir)
@@ -226,6 +242,7 @@ function rotate(matrix, dir)
 
 let score = 0;
 let dropCounter = 0;
+let aux = 0;
 let dropInterval = 1000;
 let lastTime = 0;
 
@@ -286,6 +303,10 @@ document.addEventListener('keydown', event =>
 	else if(event.keyCode === 40)
 	{
 		playerRotate(+1);
+	}
+	else if(event.keyCode === 96)
+	{
+		playerFastDrop();
 	}
 	//console.log(event);
 });
