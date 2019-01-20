@@ -14,7 +14,28 @@ class Player
 
 		this.reset();
 	}
-	
+	update(deltaTime)
+	{
+		this.dropCounter += deltaTime;
+	    if (this.dropCounter > this.dropInterval) 
+	    {
+	        this.drop();
+	    }
+	}
+	drop()
+	{
+		this.pos.y++;
+
+		if(this.arena.collide(this))
+		{
+			this.pos.y--;
+			this.arena.merge(this);
+			this.reset();
+			this.arena.sweep();
+			updateScore();
+		}
+		this.dropCounter = 0;
+	}
     move(dir)
     {
         this.pos.x += dir;
@@ -23,7 +44,6 @@ class Player
             this.pos.x -= dir;
         }
     }
-
 	rotate(dir)
 	{
 		const pos = this.pos.x;
@@ -43,7 +63,6 @@ class Player
 			}
 		}
 	}
-
 	_rotateMatrix(matrix, dir)
 	{
 		for(let y = 0; y < matrix.length; ++y)
@@ -59,31 +78,6 @@ class Player
 		else
 			matrix.reverse();
 	}
-
-	drop()
-	{
-		this.pos.y++;
-
-		if(this.arena.collide(this))
-		{
-			this.pos.y--;
-			this.arena.merge(this);
-			this.reset();
-			this.arena.sweep();
-			updateScore();
-		}
-		this.dropCounter = 0;
-	}
-
-	update(deltaTime)
-	{
-		this.dropCounter += deltaTime;
-	    if (this.dropCounter > this.dropInterval) 
-	    {
-	        this.drop();
-	    }
-	}
-
 	reset()
 	{
 	    const pieces = 'TJLOSZI';
