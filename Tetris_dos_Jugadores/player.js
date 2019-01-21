@@ -2,17 +2,20 @@ class Player
 {
 	constructor(tetris)
 	{
-		this.tetris = tetris;
-		this.arena = tetris.arena;
+        this.DROP_SLOW = 1000;
+        this.DROP_FAST = 50;
 
-		this.dropCounter = 0;
-		this.dropInterval = 1000;
+        this.tetris = tetris;
+        this.arena = tetris.arena;
 
-		this.pos = {x: 0, y: 0};
-		this.matrix = null;
-		this.score = 0;
+        this.dropCounter = 0;
+        this.dropInterval = this.DROP_SLOW;
 
-		this.reset();
+        this.pos = {x: 0, y: 0};
+        this.matrix = null;
+        this.score = 0;
+
+        this.reset();
 	}
 	update(deltaTime)
 	{
@@ -32,7 +35,7 @@ class Player
 			this.arena.merge(this);
 			this.reset();
 			this.score += this.arena.sweep();
-			this.tetris.updateScore(this.score);		
+			this.tetris.updateScore(this.score);
 		}
 		this.dropCounter = 0;
 	}
@@ -81,7 +84,7 @@ class Player
 	reset()
 	{
 	    const pieces = 'TJLOSZI';
-	    this.matrix = this.tetris.createPiece(pieces[pieces.length * Math.random() | 0]);
+	    this.matrix = createPiece(pieces[pieces.length * Math.random() | 0]);
 	    this.pos.y = 0;
 	    this.pos.x = (this.arena.matrix[0].length / 2 | 0) -
                      (this.matrix[0].length / 2 | 0);

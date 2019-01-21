@@ -1,3 +1,4 @@
+/*
 function createPiece(type)
 {
 	if(type === 'T')
@@ -49,13 +50,8 @@ function createPiece(type)
 		[0, 7, 7],
 		[0, 0, 0], ];
 	}
-
 }
-
-function updateScore()
-{
-	document.getElementById('score').innerText = tetris.player.score;
-}
+*/
 
 const canvas = document.getElementById('tetris');
 const tetris = new Tetris(canvas);
@@ -82,8 +78,5 @@ document.addEventListener('keydown', event =>
 	else if(event.keyCode === 40)
 	{
 		player.rotate(+1);
-	}
-	
+	}	
 });
-
-updateScore();
